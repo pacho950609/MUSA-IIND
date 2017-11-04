@@ -1,0 +1,157 @@
+
+
+<br>
+
+
+<div class="row">
+
+
+
+
+
+  <div class="col-md-4">
+  </div><!-- /.col-md-6 -->
+
+
+  <div class="col-md-1">
+     <h4> Niveles  </h4>
+  </div><!-- /.col-md-6 -->
+
+
+  <div class="col-md-1">
+      <input type="number" [(ngModel)]="rangoEncuesta"  class="form-control" placeholder="">
+  </div><!-- /.col-md-6 -->
+
+ <div class="col-md-1">
+     <h4> Nombre  </h4>
+  </div><!-- /.col-md-6 -->
+
+<div class="col-md-2">
+      <input type="text" [(ngModel)]="nombreEncuesta"  class="form-control" placeholder="">
+  </div><!-- /.col-md-6 -->
+
+</div><!-- /.row -->
+
+<div class="row">
+
+  <div class="col-md-3">
+  </div><!-- /.col-md-6 -->
+
+
+  <div class="col-md-2  ">
+     <h4> Agregar categoria</h4>
+  </div><!-- /.col-md-6 -->
+
+
+  <div class="col-md-4">
+
+     <form #formCtrl="ngForm" (ngSubmit)="agregarEncuesta()">  
+   
+    <div class="input-group">
+       <input type="text" [(ngModel)]="categoria" name="categoria"  class="form-control" placeholder="Ingresa aqui" />
+       <span class="input-group-btn">
+        <button class="btn btn-default" type="button" type="submit">Agregar</button>
+      </span>
+    </div><!-- /input-group -->
+
+     </form>
+
+
+  </div><!-- /.col-md-6 -->
+
+</div>
+
+
+
+
+<div class= "row">
+
+  <div class="col-md-5">
+  </div><!-- /.col-md-6 -->
+
+  <div class="col-md-2">
+      <h3> Encuesta </h3>
+  </div><!-- /.col-md-6 -->
+
+   <div class="col-md-1">
+     <br>
+     <button class="btn btn-default" (click)="guardarEncuesta()" > Guardar </button>
+  </div><!-- /.col-md-6 -->
+
+</div>
+
+<br>
+
+
+
+<div class="row">
+
+  <div class="col-md-3">
+  </div><!-- /.col-md-6 -->
+       
+
+  <div class="col-md-6">
+
+
+
+
+    <ul class="list-group">
+
+      <div *ngFor="let catego of categorias ; let i = index" [attr.data-index]="i"  >
+
+          <div class="input-group">
+      
+      
+          <button class="list-group-item" data-toggle="collapse" [attr.data-target]="'#' + i " > {{catego.nombre}} </button>
+              
+               
+              
+              
+                <div id="{{i}}" class="collapse">
+                                      
+                    <div class="col-md-12">
+
+                       <div *ngFor="let subCatego of catego.subCategorias">
+                       <li class="list-group-item"  > {{subCatego.nombre}} </li>
+                       </div>
+
+                        <form #formCtrl="ngForm" (ngSubmit)="agregarSub(formCtrl,catego)">  
+                        <div class="input-group">
+                          <input type="text"   class="form-control" name="subCategoria" placeholder="Ingresa aqui la sub-categoria" ngModel/>
+                          <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" type="submit">Agregar</button>
+                          </span>
+                        </div><!-- /input-group -->
+                        </form>
+
+
+                     </div><!-- /.col-md-6 -->
+                </div>
+
+
+
+          <span class="input-group-btn">
+        <button class="btn btn-default" (click)="eliminarCategoria(catego)">X</button>
+      </span>
+    </div><!-- /input-group -->
+
+
+      </div>
+
+    </ul>
+
+
+
+
+   
+
+  </div><!-- /.col-md-6 -->
+
+
+
+ 
+
+
+</div><!-- /.row -->
+
+

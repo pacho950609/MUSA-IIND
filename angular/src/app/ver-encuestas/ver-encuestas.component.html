@@ -1,0 +1,101 @@
+<div class="row">
+  
+   <div class="col-md-1 text-center"> 
+  </div>
+
+    <div class="col-md-3 text-center">
+      <div class="list-group">
+        <a  class="list-group-item active">
+          Encuestas
+        </a>
+        <div class="panel panel-primary" style=" height: 150px; overflow-y: scroll;">
+            <div *ngFor="let encuesta of encuestasVer">
+            <a (click)=" verPeriodos(encuesta)"  class="list-group-item">{{encuesta.nombreEncuesta}}</a>
+            </div>
+        </div>
+      </div>
+      <br>
+      <div class="list-group">
+        <a  class="list-group-item active">
+          Historico
+        </a>
+        <div class="panel panel-primary" style=" height: 230px; overflow-y: scroll;">
+            <div *ngFor="let encuesta of encuestasDelPeriodo">
+            <a (click)="verEncuesta(encuesta)"  class="list-group-item ">{{encuesta.fecha}}</a>
+            </div>
+            <form #formCtrl="ngForm" (ngSubmit)="agregarPeriodo()">  
+              <div *ngIf="encuestaPadre!=undefined">
+               <div class="input-group">
+                  <input type="date" [(ngModel)]="fecha" name="fecha"  class="form-control" style="font-size: 1.2rem" />
+                  <span class="input-group-btn">
+                   <button class="btn btn-default" type="button" type="submit" >Add</button>
+                 </span>
+               </div><!-- /input-group -->
+              </div>
+            </form>
+        </div>
+      </div>
+    
+    </div>
+
+   
+
+   <div class="col-md-7 text-center" *ngIf= "nombreActual!=undefined" > 
+
+      <div class="list-group">
+        <a  class="list-group-item active">
+          Agregar Informacion a {{nombreActual}} del {{fechaActual}}
+        </a>
+
+         <div *ngFor="let categoria of categoriasActual">
+             <div class="input-group">
+              
+              <li class="list-group-item"  > {{categoria.nombre}} </li>  
+              <span class="input-group-addon" *ngFor="let fake of fakeArray ; let idx = index" >
+                   <div >
+                  <button id="{{categoria.nombre}}-{{idx+1}}" (click)="seleccion($event,categoria)" class="form-control"> {{idx+1}} </button>
+                   </div>
+              </span>
+                          
+             </div>
+
+             <div *ngFor="let subCategoria of categoria.subCategorias">
+
+               <div class="col-md-1 text-center"> 
+              </div>
+
+              <div class="input-group">
+              
+              <li class="list-group-item"   > {{subCategoria.nombre}} </li>  
+              <span class="input-group-addon" *ngFor="let fake of fakeArray ; let idx = index" >
+                  <div >
+                  <button id="{{categoria.nombre}}+{{subCategoria.nombre}}-{{idx+1}}" (click)="seleccion($event,subCategoria)" class="form-control"> {{idx+1}} </button>
+                   </div>
+              </span>
+                          
+             </div>
+
+             </div>
+
+
+
+
+        </div>
+
+
+        <br>
+        <button class="btn btn-primary" (click)="guardar()" > Agregar </button>
+         <button class="btn btn-primary" (click)="enviar()" > Guardar </button>
+
+ 
+      </div>
+ 
+        
+
+
+  </div>
+
+
+
+
+</div>
