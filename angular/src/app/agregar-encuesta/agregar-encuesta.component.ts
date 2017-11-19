@@ -35,8 +35,26 @@ export class AgregarEncuestaComponent implements OnInit {
   guardarEncuesta(){
 
 
+    if(this.categorias.length<1)
+    {
+      window.alert("Agregue una categoría");
+    }
+
+    else if ( this.nombreEncuesta==undefined ||this.nombreEncuesta=="")
+    {
+      window.alert("Defina el nombre de la encuesta");
+    }
+
+    else if ( this.rangoEncuesta==undefined || Number(this.rangoEncuesta)<=2)
+    {
+      window.alert("Defina los niveles de satisfacción de la encuesta, recuerde debe ser mayor a 2 ");
+    }
+
+    else
+    {
+
     var agregar = new Categoria() ;
-    agregar.nombre='Satisfaccion general'
+    agregar.nombre='Satisfacción general'
     this.categorias.push(agregar); 
 
      var objeto=
@@ -52,6 +70,9 @@ export class AgregarEncuestaComponent implements OnInit {
         window.location.href = 'http://localhost:4200/verencuesta'; 
     }); 
       window.alert("Encuesta agregada exitosamente");
+  }
+
+
      
   }
 

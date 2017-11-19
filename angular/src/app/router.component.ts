@@ -4,6 +4,7 @@ import { IndexComponent } from './index/index.component';
 import { AgregarEncuestaComponent} from './agregar-encuesta/agregar-encuesta.component';
 import { VerEncuestasComponent} from './ver-encuestas/ver-encuestas.component';
 import { VerResultadosComponent} from './ver-resultados/ver-resultados.component';
+import {LinkEncuestaComponent} from './link-encuesta/link-encuesta.component'
 
 
 
@@ -14,6 +15,7 @@ export const routes: Routes = [
      { path: 'agregarencuesta', component: AgregarEncuestaComponent },
      { path: 'verencuesta', component: VerEncuestasComponent },
      { path: 'verresultado', component: VerResultadosComponent },
+     {path:'linkencuesta/:id/:padre/:fecha', component: LinkEncuestaComponent}
 
 ];
 

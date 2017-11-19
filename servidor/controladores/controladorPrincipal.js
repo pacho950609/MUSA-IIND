@@ -267,7 +267,7 @@ module.exports =
                         
 
                                 
-                         res.json('acabe');
+                        
                         //subir las imagenes a firebase
 
                         const testFolder = 'C:/temp/Graficas1';
@@ -294,6 +294,8 @@ module.exports =
                 
                           });
                         })
+
+                        res.json('acabe');
                         
                       
                     });

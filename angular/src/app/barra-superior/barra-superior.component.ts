@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import {ActivatedRoute} from '@angular/router'
 @Component({
   selector: 'app-barra-superior',
   templateUrl: './barra-superior.component.html',
@@ -7,7 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BarraSuperiorComponent implements OnInit {
 
-  constructor() { }
+  respuesta : boolean;
+  constructor(private route:ActivatedRoute)
+   {
+    
+      
+      this.respuesta=window.location.pathname.startsWith("/linkencuesta");
+  }
 
   ngOnInit() {
   }

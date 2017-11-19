@@ -4,16 +4,16 @@
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
       </button>
-      <a class="navbar-brand" href="#">Metodologia MUSA</a>
+      <a class="navbar-brand" href="#">Metodología MUSA</a>
     </div>
 
 
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <div *ngIf= "!respuesta"class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
       <ul class="nav navbar-nav">
         <li><a routerLink="/agregarencuesta">Agregar encuesta</a></li>
-        <li><a routerLink="/verencuesta">Importar informacion</a></li>
+        <li><a routerLink="/verencuesta">Agregar información</a></li>
         <li><a routerLink="/verresultado">Ver resultados</a></li>
        
       </ul>

@@ -32,12 +32,22 @@ export class Servicio{
         const items = this.fireBase.list('Encuestas');
         return items
     }
-
+    obtenerEncuesta(llave)
+    {
+        const items = this.fireBase.list('Encuestas/'+llave);
+        return items
+    }
 
         guardarInfo(llave, informacion)
     {
         const items = this.fireBase.list('Encuestas/'+llave);
         return  items.update('categorias',informacion);
+    } 
+
+    guardarInfoLink(llave, categorias)
+    {
+        const items = this.fireBase.list('Encuestas/'+llave);
+        return  items.update('categorias',categorias);
     } 
 
      correrModelo(llave)

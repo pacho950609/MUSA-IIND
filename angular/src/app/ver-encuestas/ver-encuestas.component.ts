@@ -10,6 +10,7 @@ import {Servicio} from '../servicios/servicio';
 export class VerEncuestasComponent implements OnInit {
 
   encuestaPadre : any ;
+  llavePadre : string ;
   fecha:any ;
   encuestas = new Array(); 
   encuestasDelPeriodo = new Array(); 
@@ -25,18 +26,26 @@ export class VerEncuestasComponent implements OnInit {
 
   constructor(private servicio: Servicio) 
   { 
-
+      var i = 0;
       var lista =  servicio.obtenerEncuestas();
       lista.forEach(element => 
         {
+          
             element.forEach(encuesta =>
             {
-              this.encuestas.push(encuesta); 
-              if(encuesta.fecha==undefined)
+            
+               if(i==0)
               {
-                this.encuestasVer.push(encuesta);
-              }
+
+                this.encuestas.push(encuesta); 
+                if(encuesta.fecha==undefined)
+                {
+                  this.encuestasVer.push(encuesta);
+                }
+             }
             });
+
+            i=1 ;
         });
       
 
@@ -98,13 +107,83 @@ enviar()
 
 }
 
+dirigir()
+{
+
+  window.location.href = 'http://localhost:4200/linkencuesta/'+this.llave+'/'+this.llavePadre+'/'+this.fechaActual; 
+
+}
+
+
 guardar()
 {
 
+  var completo = true ;
+  var i ;
+  this.categoriasActual.forEach(categoria => 
+    {
+      if(completo)
+      {
+    
+        var fila = false ;
+        for( i = 1 ; i<= Number(this.rangoActual) ; i++)
+        {
+          
+          if(document.getElementById(categoria.nombre+'-'+i).className=="btn btn-success")
+          {
+            fila = true ;
+          }
+        }
+          completo = fila ;
+      }
+    });
+
+    if(completo)
+    {
+
+      this.categoriasActual.forEach(categoria => 
+        {
+          if(categoria.nombre!="Satisfacción general")
+          {
+            categoria.subCategorias.forEach(sub =>
+              {
+                  if(completo)
+                  {
+                  
+                    var fila = false ;
+                    for( i = 1 ; i<= Number(this.rangoActual) ; i++)
+                    {
+                  
+                      if(document.getElementById(categoria.nombre+'+'+sub.nombre+'-'+i).className=="btn btn-success")
+                      {
+                        fila = true ;
+                      }
+                    }
+
+                    completo = fila ;
+
+                 }
+
+              });
+
+          }
+        
+           
+            
+        });
+
+
+    }
+
+  
+
+
+if(completo)
+{
    this.categoriasActual.forEach(categoria => 
         {
           categoria.puntaje.push(categoria.mientras);
-          if(categoria.nombre!='Satisfaccion general')
+          if(categoria.nombre!='Satisfacción general')
           {
             categoria.subCategorias.forEach(sub =>
             {
@@ -117,6 +196,16 @@ guardar()
      
        window.alert("agregado");
       this.limpiar();
+
+}
+
+else
+{
+
+  window.alert("es necesario completar la encuesta");
+
+
+}
 
 }
 
@@ -135,7 +224,7 @@ limpiar()
             
             }
 
-    if(categoria.nombre!='Satisfaccion general')
+    if(categoria.nombre!='Satisfacción general')
           {
             categoria.subCategorias.forEach(sub =>
             {
@@ -168,6 +257,8 @@ limpiar()
 
     this.encuestasDelPeriodo = new Array(); 
     this.encuestaPadre=encuesta ;
+    this.llavePadre=encuesta.$key ;
+    console.log(this.llavePadre);
 
     this.encuestas.forEach(element => 
       {
@@ -194,7 +285,7 @@ limpiar()
   agregarPeriodo()
   {
   
-    console.log(this.fecha) ;
+  
 
     var objeto=
     {
@@ -214,6 +305,9 @@ limpiar()
   
   
   }
+
+
+  
 
 
   ngOnInit() {

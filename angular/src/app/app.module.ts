@@ -13,6 +13,7 @@ import { VerEncuestasComponent } from './ver-encuestas/ver-encuestas.component';
 import { VerResultadosComponent } from './ver-resultados/ver-resultados.component'
 import {ChartModule} from "angular2-highcharts";
 import { HighchartsStatic } from 'angular2-highcharts/dist/HighchartsService';
+import { LinkEncuestaComponent } from './link-encuesta/link-encuesta.component';
 
 
 export function highchartsFactory() {
@@ -38,7 +39,8 @@ export function highchartsFactory2() {
     IndexComponent,
     AgregarEncuestaComponent,
     VerEncuestasComponent,
-    VerResultadosComponent
+    VerResultadosComponent,
+    LinkEncuestaComponent
   ],
   imports: [
     BrowserModule,

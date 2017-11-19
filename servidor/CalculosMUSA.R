@@ -9,8 +9,8 @@ library(xlsx)
 
 
 #Escoger directorio de datos#
-setwd("C:/Users/Dr Francisco/Desktop/tesisIIND/servidor/RMusa")
-pathActual <- setwd("C:/Users/Dr Francisco/Desktop/tesisIIND/servidor/RMusa")
+setwd("C:/Users/Dr Francisco/Desktop/MUSA-IIND/servidor/RMusa")
+pathActual <- setwd("C:/Users/Dr Francisco/Desktop/MUSA-IIND/servidor/RMusa")
 pathDatos <- file.path(pathActual,"Data1")
 pathModelos <- pathActual
 

@@ -22,18 +22,18 @@ xrange<-yProm$Niveles #Rango eje x
 yrange<-yProm$funcionY#Rango eje y 
 
 # Crear el plot 
-plot(xrange, yrange, type="n", xlab="Niveles de satisfaccion global", ylab="Funcion Y" ) 
+plot(xrange, yrange, type="n", xlab="Niveles", ylab="Funcion Y" ) 
 
 # agregar las lineas
 lines(yProm$Niveles,yProm$funcionY, type="o", lwd=1.5, col="coral1")
 
 # agregar titulo y subtitulo
-title("FunciÃ³n de satisfacciÃ³n Global", "Niveles")
+title("Función de satisfacción")
 
 #Histograma de frecuencias relativas
 h <- hist(satGlobal$satGlobal, plot=FALSE,breaks=c(0: listParam$alfa))
 h$counts=h$counts/sum(h$counts)
-plot(h,main=" Histograma Frec. Relativa Global",col="coral1", border="black", xlab="Niveles", ylab="Frec. Relativa")
+plot(h,main=" Histograma ",col="coral1", border="black", xlab="Niveles", ylab="Frec. Relativa")
 dev.off()
 
 #--------Gr?ficas funcion de satisfaccion por criterios----------#
@@ -55,19 +55,19 @@ for( i in 1:listParam$criterios)
   yrange<-subset$funcionXi #Rango eje y
   
   # Crear el plot 
-  plot(xrange, yrange, type="o", xlab=paste("Niveles de satisfaccion Criterio ",i,sep=""), ylab=paste("Funcion X",i, sep="") )
+  plot(xrange, yrange, type="o", xlab=paste("Niveles",sep=""), ylab=paste("Funcion X",i, sep="") )
   # agregar las lineas
   
   lines(subset$niveles,subset$funcionXi, type="o", lwd=1.5,  col=i+100)
   
   # agregar titulo y subtitulo
-  title(paste("Funci?n de satisfacci?n Criterio ",i,sep=""), "Niveles")
+  title(paste("Función de satisfacción",sep=""))
   
   #Histograma de frecuencias relativas para el criterio i
   crit<-satCriterios$CRITERIOS==i
   h <- hist((subset (satCriterios,crit))$satCriterios, plot=FALSE,breaks=c(0: listParam$alfa))
   h$counts=h$counts/sum(h$counts)
-  plot(h,main=paste(" Histograma Frec. Relativa Criterio ",i,sep=""),col=i+100, border="black", xlab="Niveles", ylab="Frec. Relativa")
+  plot(h,main=paste(" Histograma",sep=""),col=i+100, border="black", xlab="Niveles", ylab="Frec. Relativa")
   detach(mtcars)
   dev.off()
 }
@@ -95,19 +95,19 @@ for( i in 1:listParam$criterios)
     yrange<-subset$funcionXij #Rango eje y
     
     # Crear el plot 
-    plot(xrange, yrange, type="o", xlab=paste("Niveles de satisfaccion Criterio ",i,"Subcriterio",j,sep=""), ylab=paste("Funcion X",i,j, sep=""))
+    plot(xrange, yrange, type="o", xlab=paste("Niveles",sep=""), ylab=paste("Funcion X",i,j, sep=""))
     # agregar las lineas
     
     lines(subset$Niveles,subset$funcionXij, type="o", lwd=1.5,  col=j+1+cont)
     
     # agregar titulo y subtitulo
-    title(paste("Funci?n de satisfacci?n Criterio ",i,"subcriterio",j,sep=""), "Niveles")
+    title(paste("Función de satisfacción",sep=""))
     
     #Histograma de frecuencias relativas para el criterio i
     crit<-satSubcriterios$CRITERIOS==i & satSubcriterios$SUBCRITERIOS==j
     h <- hist((subset (satSubcriterios,crit))$satSubcriterios, plot=FALSE,breaks=c(0:listParam$alfa))
     h$counts=h$counts/sum(h$counts)
-    plot(h,main=paste(" Histograma Frec. Relativa Criterio ",i,"subcriterio ",jsep=" "),col=j+1+cont, border="black", xlab="Niveles", ylab="Frec. Relativa")
+    plot(h,main=paste(" Histograma ",jsep=" "),col=j+1+cont, border="black", xlab="Niveles", ylab="Frec. Relativa")
     detach(mtcars)
     dev.off()
   }
@@ -172,18 +172,18 @@ mypath <- file.path(paste0(PathGraficas,dmu),'diagramaAccionRelativoCriterios.jp
 jpeg(mypath)
 
 #Dibujar los c?rculos de cada criterio en el diagrama 
-symbols(diagramaAccionCriterios$bPrima,diagramaAccionCriterios$sPrima,circles=rep(0.03,each=nrow(diagramaAccionCriterios)),xlab="Importancia",ylab="Desempe?o",inches=FALSE,main="Diagrama de acci?n relativo Criterios",bg = 100:(100+nrow(diagramaAccionCriterios)),xlim=c(-1,1),ylim=c(-1,1))
+symbols(diagramaAccionCriterios$bPrima,diagramaAccionCriterios$sPrima,circles=rep(0.03,each=nrow(diagramaAccionCriterios)),xlab="Importancia",ylab="Desempeño",inches=FALSE,bg = 100:(100+nrow(diagramaAccionCriterios)),xlim=c(-1,1),ylim=c(-1.5,1.5))
 
 #DIvidir el cuadrante en 4
 abline(h = 0, col = "black")
 abline(v = 0, col = "black")
 
 # add a legend 
-text(diagramaAccionCriterios$bPrima,diagramaAccionCriterios$sPrima, labels=paste("Criterio ",as.data.frame(diagramaAccionCriterios)$criterios),pos=2, cex = 0.6, offset = 0.6)
-legend(0.45,0.3,legend="Oportunidad Competitiva\nalto desempe?o/alta importancia",xjust=0.2,yjust=0.5,text.font=2,cex=0.58,box.lwd=-0.0001)
-legend(0.45,-0.4,legend="Oportunidad de mejora  \n bajo desempe?o/alta importancia",xjust=0.5,yjust=0.5,text.font=2,cex=0.58,box.lwd=-0.0001)
-legend(-0.4,-0.5,legend="Status Quo \n bajo desempe?o/baja importancia",xjust=0.5,yjust=0.5,text.font=2,cex=0.58,box.lwd=-0.0001) 
-legend(-0.45,0.5,legend="Transferir Recursos alto \n desempe?o/baja importancia",xjust=0.5,yjust=0.5,text.font=2,cex=0.58,box.lwd=-0.0001)
+text(diagramaAccionCriterios$bPrima,diagramaAccionCriterios$sPrima, labels=paste("Criterio ",as.data.frame(diagramaAccionCriterios)$criterios),pos=2, cex = 0.7, offset = 0.6)
+legend(0.4,1.4,legend="Oportunidad Competitiva\nalto desempeño/alta importancia",xjust=0.5,yjust=0.5,text.font=2,cex=0.7,box.lwd=-0.0001)
+legend(0.5,-1.4,legend="Oportunidad de mejora  \n bajo desempeño/alta importancia",xjust=0.5,yjust=0.5,text.font=2,cex=0.7,box.lwd=-0.0001)
+legend(-0.5,-1.4,legend="Status Quo \n bajo desempeño/importancia",xjust=0.5,yjust=0.5,text.font=2,cex=0.7,box.lwd=-0.0001) 
+legend(-0.5,1.4,legend="Transferir Recursos alto \n desempeño/baja importancia",xjust=0.5,yjust=0.5,text.font=2,cex=0.7,box.lwd=-0.0001)
 
 dev.off()
 
@@ -236,7 +236,7 @@ mypath <- file.path(paste0(PathGraficas,dmu),'diagramaAccionRelativoSubcriterios
 jpeg(mypath)
 
 #Dibujar los c?rculos de cada criterio en el diagrama 
-symbols(diagramaAccionSubcriterios$bijPrima,diagramaAccionSubcriterios$sijPrima,circles=rep(0.03,each=nrow(diagramaAccionSubcriterios)),xlab="Importancia",ylab="Desempe?o",inches=FALSE,main="Diagrama de acci?n relativo Subcriterios",bg = 100:(100+nrow(diagramaAccionCriterios)),xlim=c(-1,1), ylim=c(-1,1))
+symbols(diagramaAccionSubcriterios$bijPrima,diagramaAccionSubcriterios$sijPrima,circles=rep(0.03,each=nrow(diagramaAccionSubcriterios)),xlab="Importancia",ylab="Desempe?o",inches=FALSE,bg = 100:(100+nrow(diagramaAccionCriterios)),xlim=c(-1,1), ylim=c(-1.5,1.5))
 
 #DIvidir el cuadrante en 4
 abline(h = 0, col = "black")
@@ -244,10 +244,10 @@ abline(v = 0, col = "black")
 
 # add a legend 
 #text(diagramaAccionSubcriterios$bijPrima,diagramaAccionSubcriterios$sijPrima, labels=paste("Criterio ",diagramaAccionSubcriterios$criterios),pos=2, cex = 0.6, offset = 0.6)
-legend(0.6,0.6,legend="Oportunidad Competitiva\nalto desempe?o/alta importancia",xjust=0.5,yjust=0.5,text.font=2,cex=0.55,box.lwd=-0.001)
-legend(0.45,-0.4,legend="Oportunidad de mejora  \n bajo desempe?o/alta importancia",xjust=0.5,yjust=0.5,text.font=2,cex=0.55,box.lwd=-0.001)
-legend(-0.4,-0.5,legend="Status Quo \n bajo desempe?o/baja importancia",xjust=0.5,yjust=0.5,text.font=2,cex=0.54,box.lwd=-0.001) 
-legend(-0.45,0.5,legend="Transferir Recursos alto \n desempe?o/baja importancia",xjust=0.5,yjust=0.5,text.font=2,cex=0.55,box.lwd=-0.001)
+legend(0.45,1.4,legend="Oportunidad Competitiva\nalto desempeño/alta importancia",xjust=0.5,yjust=0.5,text.font=2,cex=0.7,box.lwd=-0.001)
+legend(0.45,-1.4,legend="Oportunidad de mejora  \n bajo desempeño/alta importancia",xjust=0.5,yjust=0.5,text.font=2,cex=0.7,box.lwd=-0.001)
+legend(-0.45,-1.4,legend="Status Quo \n bajo desempeño/baja importancia",xjust=0.5,yjust=0.5,text.font=2,cex=0.7,box.lwd=-0.001) 
+legend(-0.45,1.4,legend="Transferir Recursos alto \n desempeño/baja importancia",xjust=0.5,yjust=0.5,text.font=2,cex=0.7,box.lwd=-0.001)
 
 dev.off()
 
@@ -291,18 +291,18 @@ mypath <- file.path(paste0(PathGraficas,dmu),'diagramaMejoraRelativoCriterios.jp
 jpeg(mypath)
 
 #Dibujar los c?rculos de cada criterio en el diagrama 
-symbols(diagramaMejoraCriterios$IPrima,diagramaMejoraCriterios$IndiceDemanda,circles=rep(0.04,each=nrow(diagramaMejoraCriterios)),xlab="Efectividad",ylab="Demanda-Esfuerzo",inches=FALSE,main="Diagrama de mejora relativo Criterios",bg = 100:(100+nrow(diagramaMejoraCriterios)),xlim=c(-1,1),ylim=c(-1,1))
+symbols(diagramaMejoraCriterios$IPrima,diagramaMejoraCriterios$IndiceDemanda,circles=rep(0.04,each=nrow(diagramaMejoraCriterios)),xlab="Efectividad",ylab="Demanda-Esfuerzo",inches=FALSE,bg = 100:(100+nrow(diagramaMejoraCriterios)),xlim=c(-1,1),ylim=c(-1.5,1.5))
 
 #DIvidir el cuadrante en 4
 abline(h = 0, col = "black")
 abline(v = 0, col = "black")
 
 # add a legend 
-text(diagramaMejoraCriterios$IPrima,diagramaMejoraCriterios$IndiceDemanda, labels=paste("Criterio ",diagramaMejoraCriterios$criterios),pos=1, cex = 0.45, offset =1)
-legend(0.45,0.3,legend="Prioridad 2\n (Alto esfuerzo/Alta efectividad)",xjust=0.5,yjust=0.5,text.font=2,cex=0.55,box.lwd=-0.001)
-legend(0.45,-0.4,legend="Prioridad 1 \n(Poco esfuerzo/ Alta efectividad)",xjust=0.5,yjust=0.5,text.font=2,cex=0.55,box.lwd=-0.001)
-legend(-0.6,-0.5,legend="Prioridad 2 \n(Poco esfuerzo/Poca efectividad)",xjust=0.5,yjust=0.5,text.font=2,cex=0.54,box.lwd=-0.001) 
-legend(-0.45,0.2,legend="Prioridad 3 \n(Alto esfuerzo/Poca efectividad)",xjust=0.5,yjust=0.5,text.font=2,cex=0.55,box.lwd=-0.001)
+text(diagramaMejoraCriterios$IPrima,diagramaMejoraCriterios$IndiceDemanda, labels=paste("Criterio ",diagramaMejoraCriterios$criterios),pos=1, cex = 0.7, offset =1)
+legend(0.45,1.4,legend="Prioridad 2\n (Alto esfuerzo/Alta efectividad)",xjust=0.5,yjust=0.5,text.font=2,cex=0.7,box.lwd=-0.001)
+legend(0.45,-1.4,legend="Prioridad 1 \n(Poco esfuerzo/ Alta efectividad)",xjust=0.5,yjust=0.5,text.font=2,cex=0.7,box.lwd=-0.001)
+legend(-0.45,-1.4,legend="Prioridad 2 \n(Poco esfuerzo/Poca efectividad)",xjust=0.5,yjust=0.5,text.font=2,cex=0.7,box.lwd=-0.001) 
+legend(-0.45,1.4,legend="Prioridad 3 \n(Alto esfuerzo/Poca efectividad)",xjust=0.5,yjust=0.5,text.font=2,cex=0.7,box.lwd=-0.001)
 
 dev.off()
 
@@ -311,7 +311,7 @@ mypath <- file.path(paste0(PathGraficas,dmu),'diagramaMejoraRelativoCriterios2.j
 jpeg(mypath)
 
 #Dibujar los c?rculos de cada criterio en el diagrama 
-symbols(diagramaMejoraCriterios$IPrima,diagramaMejoraCriterios$IndiceDemanda,circles=rep(0.04,each=nrow(diagramaMejoraCriterios)),xlab="Efectividad",ylab="Demanda-Esfuerzo",inches=FALSE,main="Diagrama de mejora relativo Criterios",bg = 100:(100+nrow(diagramaMejoraCriterios)))
+symbols(diagramaMejoraCriterios$IPrima,diagramaMejoraCriterios$IndiceDemanda,circles=rep(0.04,each=nrow(diagramaMejoraCriterios)),xlab="Efectividad",ylab="Demanda-Esfuerzo",inches=FALSE,bg = 100:(100+nrow(diagramaMejoraCriterios)))
 
 #DIvidir el cuadrante en 4
 abline(h = 0, col = "black")
@@ -368,7 +368,7 @@ for(i in 1:listParam$criterios)
   jpeg(mypath)
   
   #Dibujar los c?rculos de cada criterio en el diagrama 
-  symbols(subset(diagramaMejoraSubcriterios, diagramaMejoraSubcriterios$criterios==i)$IijPrima,subset(diagramaMejoraSubcriterios, diagramaMejoraSubcriterios$criterios==i )$IndiceDemanda,circles=rep(0.06,each=nrow(subset(diagramaMejoraSubcriterios, diagramaMejoraSubcriterios$criterios==i ))),xlab="Efectividad",ylab="Demanda-Esfuerzo",inches=FALSE,main=paste("Diagrama de mejora relativo SubCriterios del criterio",i),bg = 100:(100+nrow(subset(diagramaMejoraSubcriterios, diagramaMejoraSubcriterios$criterios==i ))),ylim=c(-2,2),xlim=c(-1,1))
+  symbols(subset(diagramaMejoraSubcriterios, diagramaMejoraSubcriterios$criterios==i)$IijPrima,subset(diagramaMejoraSubcriterios, diagramaMejoraSubcriterios$criterios==i )$IndiceDemanda,circles=rep(0.06,each=nrow(subset(diagramaMejoraSubcriterios, diagramaMejoraSubcriterios$criterios==i ))),xlab="Efectividad",ylab="Demanda-Esfuerzo",inches=FALSE,bg = 100:(100+nrow(subset(diagramaMejoraSubcriterios, diagramaMejoraSubcriterios$criterios==i ))),ylim=c(-1.5,1.5),xlim=c(-1,1))
   
   #Dividir el cuadrante en 4
   
@@ -376,11 +376,11 @@ for(i in 1:listParam$criterios)
   abline(v = 0, col = "black")
   
   # add a legend 
-  text(subset(diagramaMejoraSubcriterios, diagramaMejoraSubcriterios$criterios==i)$IijPrima,subset(diagramaMejoraSubcriterios, diagramaMejoraSubcriterios$criterios==i)$IndiceDemanda, labels=paste("Criterio ",subset(diagramaMejoraSubcriterios, diagramaMejoraSubcriterios$criterios==i)$criterios, "sub",subset(diagramaMejoraSubcriterios, diagramaMejoraSubcriterios$criterios==i)$subcriterios),pos=1, cex = 0.45, offset =1)
-  legend(0.45,0.3,legend="Prioridad 2\n (Alto esfuerzo/Alta efectividad)",xjust=0.5,yjust=0.5,text.font=2,cex=0.55,box.lwd=-0.001)
-  legend(0.45,-0.4,legend="Prioridad 1 \n(Poco esfuerzo/ Alta efectividad)",xjust=0.5,yjust=0.5,text.font=2,cex=0.55,box.lwd=-0.001)
-  legend(-0.6,-0.5,legend="Prioridad 2 \n(Poco esfuerzo/Poca efectividad)",xjust=0.5,yjust=0.5,text.font=2,cex=0.54,box.lwd=-0.001) 
-  legend(-0.45,0.2,legend="Prioridad 3 \n(Alto esfuerzo/Poca efectividad)",xjust=0.5,yjust=0.5,text.font=2,cex=0.55,box.lwd=-0.001)
+  text(subset(diagramaMejoraSubcriterios, diagramaMejoraSubcriterios$criterios==i)$IijPrima,subset(diagramaMejoraSubcriterios, diagramaMejoraSubcriterios$criterios==i)$IndiceDemanda, labels=paste("sub",subset(diagramaMejoraSubcriterios, diagramaMejoraSubcriterios$criterios==i)$subcriterios),pos=1,text.font=10, cex = 0.7, offset =1)
+  legend(0.4,1.4,legend="Prioridad 2\n (Alto esfuerzo/Alta efectividad)",xjust=0.5,yjust=0.5,text.font=2,cex=0.7,box.lwd=-0.001)
+  legend(0.4,-1.4,legend="Prioridad 1 \n(Poco esfuerzo/ Alta efectividad)",xjust=0.5,yjust=0.5,text.font=2,cex=0.7,box.lwd=-0.001)
+  legend(-0.6,-1.4,legend="Prioridad 2 \n(Poco esfuerzo/Poca efectividad)",xjust=0.5,yjust=0.5,text.font=2,cex=0.7,box.lwd=-0.001) 
+  legend(-0.6,1.4,legend="Prioridad 3 \n(Alto esfuerzo/Poca efectividad)",xjust=0.5,yjust=0.5,text.font=2,cex=0.7,box.lwd=-0.001)
   
   dev.off()
   

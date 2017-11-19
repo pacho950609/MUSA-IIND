@@ -1,0 +1,61 @@
+<div class="col-md-3"></div>
+
+<div class="col-md-7 text-center" *ngIf= "nombreencuesta!=undefined" > 
+  
+        <div class="list-group">
+          <a  class="list-group-item active">
+            Agregar Información a {{nombreencuesta}} del {{fecha}}
+          </a>
+  
+           <div *ngFor="let categoria of categorias">
+               <div class="input-group">
+                
+                <li class="list-group-item"  > {{categoria.nombre}} </li>  
+                <span class="input-group-addon" *ngFor="let fake of fakeArray ; let idx = index" >
+                     <div >
+                    <button id="{{categoria.nombre}}-{{idx+1}}" (click)="seleccion($event,categoria)" class="form-control"> {{idx+1}} </button>
+                     </div>
+                </span>
+                            
+               </div>
+  
+               <div *ngFor="let subCategoria of categoria.subCategorias">
+  
+                 <div class="col-md-1 text-center"> 
+                </div>
+  
+                <div class="input-group">
+                
+                <li class="list-group-item"   > {{subCategoria.nombre}} </li>  
+                <span class="input-group-addon" *ngFor="let fake of fakeArray ; let idx = index" >
+                    <div >
+                    <button id="{{categoria.nombre}}+{{subCategoria.nombre}}-{{idx+1}}" (click)="seleccion($event,subCategoria)" class="form-control"> {{idx+1}} </button>
+                     </div>
+                </span>
+                            
+               </div>
+  
+               </div>
+  
+  
+  
+  
+          </div>
+  
+  
+          <br>
+          <button class="btn btn-primary" (click)="actualizar()" > Enviar </button>
+         
+        </div>
+   
+          
+  
+  
+    </div>
+
+    <div class="col-md-7"  *ngIf= "nombreencuesta==undefined">
+
+      Encuesta enviada correctamente
+
+
+    </div>
