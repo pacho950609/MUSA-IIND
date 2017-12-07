@@ -20,8 +20,7 @@
 #----GLOBAL------#
 #calcular el histograma de frecuencias relativas para el desempe?o global (satisf global)
 
-FrecuenciaRelativaGlobal<-cbind( NivelSatisfaccion= nivelsatisfaccion<-c(1: listParam$alfa),Freq=tabulate(satGlobal$satGlobal),relative=prop.table(tabulate(satGlobal$satGlobal)))
-
+FrecuenciaRelativaGlobal<-cbind( NivelSatisfaccion= nivelsatisfaccion<-c(1: listParam$alfa),Freq=tabulate(satGlobal$satGlobal,nbins = listParam$alfa),relative=prop.table(tabulate(satGlobal$satGlobal,nbins = listParam$alfa)))
 #Calculo del indice promedio de satisfaccion global: La frecuencia relativa de cada nivel de satifaccion alfa se debe multiplicar por la fucnion Y de cada nivel. El resultado obtenido se suma obteniendo el indice deseado.
 #s=(1/100)*suma(k in 1:alfa)frecuenciaRelativa(k)* FuncionY(k) 
 indiceSatisfaccionGlobal<-0
@@ -45,7 +44,7 @@ for( i in 1:listParam$criterios)
       satCriterioActual<-append(satCriterioActual,satCriterios$satCriterios[j])
     }
   }
-  FrecuenciaRelativaCriterios<-cbind(FrecuenciaRelativaCriterios,criterio=c(i:i),Freq=tabulate(satCriterioActual),relative=prop.table(tabulate(satCriterioActual)))
+  FrecuenciaRelativaCriterios<-cbind(FrecuenciaRelativaCriterios,criterio=c(i:i),Freq=tabulate(satCriterioActual,nbins = listParam$alfa),relative=prop.table(tabulate(satCriterioActual,nbins = listParam$alfa)))
   
   #
 }
@@ -89,7 +88,7 @@ for( i in 1:listParam$criterios)
       }
     }
     #Hallar tabla de frecuencia relativa y frecuencia absoluta para la satiafacci?n de subcriterios
-    FrecuenciaRelativaSubcriterios<-cbind( FrecuenciaRelativaSubcriterios,criterio=c(i:i),subcriterio=c(j:j),Freq=tabulate(satSubcriterioActual),relative=prop.table(tabulate(satSubcriterioActual)))
+    FrecuenciaRelativaSubcriterios<-cbind( FrecuenciaRelativaSubcriterios,criterio=c(i:i),subcriterio=c(j:j),Freq=tabulate(satSubcriterioActual,nbins = listParam$alfa),relative=prop.table(tabulate(satSubcriterioActual,nbins = listParam$alfa)))
     
     #histogramaCriterio<-histogram(satCriterioActual,freq=TRUE,main=paste("Satisfaccion Criterio",i,sep=""), xlab="Niveles de satisfaccion")  
     #histogramaCriterio
