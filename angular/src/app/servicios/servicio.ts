@@ -44,6 +44,16 @@ export class Servicio{
         return  items.update('categorias',informacion);
     } 
 
+    eliminarInfo(llave)
+    {
+        var eliminado = {
+            eliminado : true 
+
+        }
+        const items = this.fireBase.list('Encuestas/'+llave);
+        return  items.update('eliminado',eliminado);
+    } 
+
     guardarInfoLink(llave, categorias)
     {
         const items = this.fireBase.list('Encuestas/'+llave);

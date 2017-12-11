@@ -35,7 +35,23 @@ export class AgregarEncuestaComponent implements OnInit {
   guardarEncuesta(){
 
 
-    if(this.categorias.length<1)
+    var i = 0 ;
+    var sigue = true ;
+    for( i ; i<this.categorias.length && sigue ;i++)
+    {
+
+     if(this.categorias[i].subCategorias.length<1) 
+     {
+       sigue = false ;
+     }
+    }
+
+    if(sigue==false)
+    {
+      window.alert("Agregue una subcategoria por categoria");
+    }
+
+    else if(this.categorias.length<1)
     {
       window.alert("Agregue una categoría");
     }
@@ -45,10 +61,12 @@ export class AgregarEncuestaComponent implements OnInit {
       window.alert("Defina el nombre de la encuesta");
     }
 
-    else if ( this.rangoEncuesta==undefined || Number(this.rangoEncuesta)<=2)
+    else if ( this.rangoEncuesta==undefined || Number(this.rangoEncuesta)<=2 || Number(this.rangoEncuesta)>=11) 
     {
-      window.alert("Defina los niveles de satisfacción de la encuesta, recuerde debe ser mayor a 2 ");
+      window.alert("Defina los niveles de satisfacción de la encuesta, recuerde debe ser mayor a 2 y menor o igual a 10");
     }
+
+  
 
     else
     {

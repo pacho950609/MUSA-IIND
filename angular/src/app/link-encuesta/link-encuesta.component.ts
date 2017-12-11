@@ -21,6 +21,9 @@ export class LinkEncuestaComponent implements OnInit {
 
   llavePadre:string ;
 
+  sexo : string ;
+  tipoUsuario : string ;
+
 
   constructor(private route: ActivatedRoute , private servicio:Servicio) 
   {
@@ -73,6 +76,16 @@ export class LinkEncuestaComponent implements OnInit {
             completo = fila ;
         }
       });
+
+
+       if ( this.sexo==undefined ||this.sexo=="")
+      {
+        completo=false ;
+      }
+      if ( this.tipoUsuario==undefined ||this.tipoUsuario=="")
+      {
+        completo=false ;
+      }
   
       if(completo)
       {
@@ -124,8 +137,23 @@ export class LinkEncuestaComponent implements OnInit {
       if(this.categoriasReal[i].puntaje==undefined)
       {
         this.categoriasReal[i].puntaje =new Array();
+     
+      }
+      if(this.categoriasReal[i].encuesta==undefined)
+      {
+       
+        this.categoriasReal[i].encuesta =new Array();
       }
       this.categoriasReal[i].puntaje.push( this.categorias[i].puntaje);
+
+      if(i==this.categorias.length-1)
+      {
+        var datos={
+          sexo : this.sexo,
+          tipoUsuario : this.tipoUsuario
+        }
+        this.categoriasReal[i].encuesta.push(datos)
+      }
      
       for( j = 0 ; i<this.categorias.length-1 && j< this.categorias[i].subCategorias.length ; j++)
       {

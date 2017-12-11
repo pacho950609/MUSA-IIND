@@ -24,6 +24,10 @@ export class VerEncuestasComponent implements OnInit {
   llave : string ;
 
 
+  sexo : string ;
+  tipoUsuario : string ;
+
+
   constructor(private servicio: Servicio) 
   { 
       var i = 0;
@@ -38,7 +42,7 @@ export class VerEncuestasComponent implements OnInit {
               {
 
                 this.encuestas.push(encuesta); 
-                if(encuesta.fecha==undefined)
+                if(encuesta.fecha==undefined && encuesta.eliminado==undefined )
                 {
                   this.encuestasVer.push(encuesta);
                 }
@@ -83,6 +87,10 @@ seleccion(event,categoria)
   {
   categoria.puntaje =new Array();
   }
+  if(categoria.encuesta== undefined)
+  {
+  categoria.encuesta =new Array();
+  }
 
   categoria.mientras= res[1] ;
  
@@ -91,11 +99,44 @@ seleccion(event,categoria)
 
 }
 
+eliminar()
+{
 
+  var r = confirm("¿ Estas seguro que deseas eliminar la información de este mes ? Con el mes también se eliminarán todas las encuestas de este periodo.");
+  if (r == true) {
+
+    this.servicio.eliminarInfo(this.llave).then(v => 
+      {
+         window.location.href = 'http://localhost:4200/verencuesta'; 
+     }); 
+     
+  } else {
+      
+  }
+}
+
+eliminarTodo()
+{
+
+  var r = confirm("¿ Estas seguro que deseas eliminar la encuesta ? Con esta opcion eliminaras todos los periodos y toda su informacion.");
+  if (r == true) {
+
+    this.servicio.eliminarInfo(this.llavePadre).then(v => 
+      {
+         window.location.href = 'http://localhost:4200/verencuesta'; 
+     }); 
+     
+  } else {
+      
+  }
+
+}
 
 
 enviar()
 {
+
+  this.categoriasActual
 
   this.servicio.guardarInfo(this.llave,this.categoriasActual).then(v => 
      {
@@ -137,6 +178,15 @@ guardar()
           completo = fila ;
       }
     });
+
+    if ( this.sexo==undefined ||this.sexo=="")
+    {
+      completo=false ;
+    }
+    if ( this.tipoUsuario==undefined ||this.tipoUsuario=="")
+    {
+      completo=false ;
+    }
 
     if(completo)
     {
@@ -187,8 +237,19 @@ if(completo)
           {
             categoria.subCategorias.forEach(sub =>
             {
-              sub.puntaje.push(sub.mientras); 
+              sub.puntaje.push(sub.mientras);  
+            
+              
+              
             });
+          }
+          else{
+
+            var datos={
+              sexo : this.sexo,
+              tipoUsuario : this.tipoUsuario
+            }
+            categoria.encuesta.push(datos)
           }
             
         });
@@ -262,7 +323,7 @@ limpiar()
 
     this.encuestas.forEach(element => 
       {
-          if(element.nombreEncuesta==encuesta.nombreEncuesta && element.fecha != undefined )
+          if(element.nombreEncuesta==encuesta.nombreEncuesta && element.fecha != undefined && element.eliminado==undefined )
           {
             this.encuestasDelPeriodo.push(element);
           }

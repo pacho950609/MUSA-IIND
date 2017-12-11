@@ -42,13 +42,13 @@ export class VerResultadosComponent implements OnInit {
     var lista =  servicio.obtenerEncuestas();
     lista.forEach(element => 
       {
-        console.log("aca");
+        
           element.forEach(encuesta =>
           {
             if(i==0)
             {
             this.encuestas.push(encuesta); 
-            if(encuesta.fecha==undefined)
+            if(encuesta.fecha==undefined && encuesta.eliminado==undefined)
             {
               this.encuestasVer.push(encuesta);
             }
@@ -68,7 +68,7 @@ export class VerResultadosComponent implements OnInit {
 
     this.encuestas.forEach(element => 
       {
-          if(element.nombreEncuesta==encuesta.nombreEncuesta && element.fecha != undefined )
+          if(element.nombreEncuesta==encuesta.nombreEncuesta && element.fecha != undefined && element.eliminado==undefined)
           {
             this.encuestasDelPeriodo.push(element);
           }

@@ -1,3 +1,8 @@
+
+<div class="page-header">
+  <h3 ALIGN=center>Captura de encuestas </h3>
+</div>
+
 <div class="row">
   
    <div class="col-md-1 text-center"> 
@@ -17,7 +22,7 @@
       <br>
       <div class="list-group">
         <a  class="list-group-item active">
-          Histórico
+          Historial
         </a>
         <div class="panel panel-primary" style=" height: 230px; overflow-y: scroll;">
             <div *ngFor="let encuesta of encuestasDelPeriodo">
@@ -47,11 +52,37 @@
 
    <div class="col-md-7 text-center" *ngIf= "nombreActual!=undefined" > 
 
+  
       <div class="list-group">
         <a  class="list-group-item active">
-          Agregar Información a {{nombreActual}} del {{fechaActual}}
+          Agregar Información a {{nombreActual}} del {{fechaActual}}  
         </a>
 
+        <div class="input-group">
+          <select  class="form-control" [(ngModel)]="sexo" >
+            <option value="Masculino">Masculino</option>
+            <option value="Femenino">Femenino</option>
+          </select>
+       <span class="input-group-btn">
+        <button class="btn btn-default" type="button" >Sexo</button>
+      </span>
+    </div><!-- /input-group -->
+
+    <div class="input-group">
+      <select  class="form-control" [(ngModel)]="tipoUsuario" >
+        <option value="Poblacion pobre no asegurada">Poblacion pobre no asegurada</option>
+        <option value="Subsidiado">Subsidiado</option>
+        <option value="Contributivo">Contributivo</option>
+        <option value="Particular">Particular</option>
+      </select>
+   <span class="input-group-btn">
+    <button class="btn btn-default" type="button" >Tipo de usuario</button>
+  </span>
+</div><!-- /input-group -->
+
+
+
+        
          <div *ngFor="let categoria of categoriasActual">
              <div class="input-group">
               
@@ -93,7 +124,9 @@
          <button class="btn btn-primary" (click)="enviar()" > Guardar </button>
         <!--  <button class="btn btn-primary"  [routerLink]="['/linkencuesta',llave,llavePadre,fechaActual]" > Obtener link </button> -->
          <button class="btn btn-primary"  (click)="dirigir()" > Obtener link </button>
- 
+         <button class="btn btn-danger"  ALIGN=left (click)="eliminar()" > Eliminar mes </button>
+         <button class="btn btn-danger"  ALIGN=left (click)="eliminarTodo()" > Eliminar encuesta </button>
+         
       </div>
  
         
